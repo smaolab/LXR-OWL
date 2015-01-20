@@ -14,16 +14,18 @@ Select the PERF button, then click again the PERF button to access the sub menu:
 
 ### 4. Sounds effect (Compressor, Bit crusher, Bit reduce, OTO biscuit FX alike, Bit reverse, etc)
 
-Select the PERF button, then click again the PERF button to access the sub menu. You will see a menu "FX VL1 VL2 VL3".
+Select the PERF button, then click again the PERF button to access the sub menu. You will see a menu "FX VL1 VL2 WET".
 
 # FX : Select the FX you want to apply :
-- 1: Simple compressor (VL1 = sensitivity, VL2 = Compression level, VL3 = Dry/wet)
-- 2: OTO biscuit - (VL1 = Forward/Backward, VL2 = Bit Rotate level, VL3 = Dry/wet)
-- 3: Strange Low Pass Filter (VL1 = Lambda, VL2 = Filter Gain, VL3 = Dry/wet)
-- 4: Decimator (VL1 = ReduceBits, VL2 = Rate, VL3 = Dry/wet)
-- 5: Bit Reversed (VL1 = BitRotate, VL2 = nothing, VL3 = Dry/wet)
-- 6: Small Bit Reversed (VL1 = VL2 = nothing, level, VL3 = Dry/wet)
-- 7-16: not working yet.
+- 1: Simple compressor (VL1 = sensitivity, VL2 = Compression level)
+- 2: OTO biscuit - (VL1 = Forward/Backward, VL2 = Bit Rotate level)
+- 3: Strange Low Pass Filter (VL1 = Lambda, VL2 = Filter Gain)
+- 4: Decimator (VL1 = ReduceBits, VL2 = Rate)
+- 5: Bit Reversed (VL1 = BitRotate, VL2 = nothing)
+- 6: Small Bit Reversed (VL1 = VL2 = nothing, level)
+- 7: Tabaria Wave Shaper
+- 8: Disto Wave Shaper
+- 9-16: not working yet.
 
 Enjoy!
 
