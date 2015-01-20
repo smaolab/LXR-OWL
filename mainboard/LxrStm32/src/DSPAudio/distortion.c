@@ -203,24 +203,6 @@ float decimateAdv(float x, int bits, float rate)
 	return y;
 }
 
-/*
-
-
-*/
-
-/* Wave Shaper Simple
-Type : waveshaper
-References : Posted by Bram de Jong
-
-http://musicdsp.org/archive.php?classid=4#153
-
-*/
-
-float waveshape_disto( float in, float amount ) {
-	return in*(abs(in) + amount)/(in*in + (amount-1)*abs(in) + 1);
-}
-
-
 
 /*
 Waveshaper
@@ -589,19 +571,6 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 			bufTemp[i] = returnInt(x) ;
 		}
 		break;
-
-		case 9 :
-
-		// Another Waveshaper
-
-		for(i =0; i < size; i++)
-		{
-			x = returnFloat(bufTemp[i]);
-			x=waveshape_disto(x, fx1/127.f);
-			bufTemp[i] = returnInt(x) ;
-		}
-		break;
-
 
 
 				/* OCTAVE DOWN
