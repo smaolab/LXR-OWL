@@ -33,6 +33,19 @@
  * ------------------------------------------------------------------------------------------------------------------------
  */
 
+/*
+* ADD-ON by Ribas Stephane (egnouf@gmail.com)
+* DATE: 20.01.2015
+* Note that this program has been modified to include new functions.
+* I will make a better code and separate the FX from this file later on.
+* Meanwhile, you will find below the authors of certain codes I have used and modified. The codes are all LXR compatible (GNU GPL Licence)
+* I thank: MusicDSP.ORG, Sonic Potion Community, OWL Project hoxtonowl.com
+*
+* The whole modified code is licenced under the same licence of the orginal code: GNU GPL V2
+*
+*/
+
+
 #include "distortion.h"
 #include "math.h"
 
