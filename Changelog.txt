@@ -1,0 +1,244 @@
+Firmware v0.33
+---------------------------
+- USB interrupt bug fixed (PLD)
+- OSX USB MIDI fixed (PLD)
+- Trigger IO will now send tigger signals on incoming MIDI notes
+- MIDI Note Off is send when amplitude envelope reaches zero
+- change in pattern data structure. Pattern lenghts of old patterns is ignored on load. you have to re-set them and re-save the pattern to store it in the new format (once)
+- LFO target fix (thanks rudeog)
+- fixed include path names in source (all '\' are now '/', propper upper and lower cases used)
+- fixed modulation target osc 3 waveform in HH voice
+- fixed mod target for LFO amounts and waveforms
+- added makefiles from Patrick Dowling
+
+- Merged in the latest changes from rudeogs repository:
+  - Merge TB323's repository which includes a "rot" parameter in the pattern generator allowing you to apply a rotation while generating a pattern.
+  - Remove untargetable modulation destinations from menus (LFO mod target, and LFO voice can't themselves be modulated as it doesn't make sense to do so)
+  - Pattern Rotation - When in performance mode, if you hold shift button and select one of the sequence step buttons you can rotate the pattern for the active voice by a number of steps relative to the other voices.
+  - Save/Load performance - this new save option lets you save the current drum patch along with the pattern set and the BPM into one file allowing multiple slots.
+  - Save/Load all - this new save option lets you save all the data in the LXR (kit, pattern, settings) into one file allowing multiple slots.
+  - Better handling of startup not finding the default drum kit. Will display an error and continue with a patch that needs editing before it will work.
+  - Realtime erase - This is useful, I've found, when recording sequences on a keyboard that are multiple bars (measures) in length. Hold down shift and copy(clear) button. While these are held, the notes on the active voice are erased. You must be in record mode, and the sequencer must be playing. So you could erase a few bad notes as you listen to your sequence, or erase multiple bars as they switch without having to mess around with selecting patterns.
+  - Recording quantization enhancement - When recording a sequence that spans multiple bars, if you are quantizing, and you hit a note right before the next bar starts (such that the note should quantize to the next bar's first step) it will now do so.
+  - Global menu can now hold more than 8 items and will scroll to page 3 (and beyond) when toggling pages or moving encoder right
+  - Pattern change reset mode. This is a new global setting that, when turned on, will cause song counter to start from 0 whenever a pattern changes. This prevents the behavior of not playing the displayed number of repetitions for a pattern (when in certain song positions. see the LXR manual). 
+  - Global midi channel setting. Affects recording notes from external gear, program change, and control change messages.
+  - Active voice control and recording. When a voice is active and notes are received on the global midi channel, they will be sent to the active voice, possibly recorded on the active voice, and echoed on the active voice's configured channel (all of this regardless of what channel the active voice is set to)
+
+Firmware v0.32
+---------------------------
+- fixed LFO sync in MIDI slave mode
+
+Firmware v0.31
+---------------------------
+- Added 'gate mode' for trigger IO
+
+Firmware v0.30
+---------------------------
+- fixed panning mod problem for snare, cymbal and hihat voice
+
+Firmware v0.29
+---------------------------
+- fixed double trigger bug on clock outs
+
+Firmware v0.28
+---------------------------
+- merged with rudeogs fork
+
+
+- refactoring of internal track length handling -> fixed out of loop/tracklength problem
+- trigger IO clock scalers added
+- fixed start/reset input pin
+- fixed sine OSC offset bug (start is now on zero crossing)
+
+Rudeogs changes:
+
+- Midi filtering. You can filter messages from being transmitted or received. Tx is independent of Rx. There are four categories of messages that can be individually configured: Program Change (P), Control Change (C), Realtime start/stop/clock (R), and Note on/off (N). These are set in the global menu under txf and rxf (transmit and receive respectively). Combinations of letters are shown. If a letter is shown, the midi message in that category will be transmitted or received. If set to off, nothing is sent/received, and if set to all everything is sent/received. This has nothing to do with midi routing which works the same way regardless of filter.
+- Midi routing (midi soft thru). You can route midi messages from input to output. This is set in the global menu under "mrt". There are 6 possible values: off - no routing, U2M - usb midi is routed to midi out port; M2M - midi received on midi in port is routed to midi out port; A2M - both usb and midi are routed to midi out port; M2U - midi input port is routed to usb output port; M2A - midi received on midi port is routed to both midi output and USB output.
+- Midi note off fixes. Will send midi off when changing pattern, channel or muting voice
+- MTC sync. Will now recognize MIDI MTC quarter frames and start when it receives a 0:0:0 location, and stop when MTC stops
+- Program change. Will respond to program change and will change between the 8 patterns when received via MIDI/USB port. For programs > 7 will use remainder when divided by 8. Program change will only respond to PC messages on the global midi channel.
+- Program change. Will send program change 1 to 8 on MIDI when manually changing drum patterns. The channel that it sends it on is the configured global channel
+- Control change. Should only respond to CC messages on the global midi channel.
+- Pattern/Kit save will use a proper cursor when editing names
+- Midi Off - Will now send midi note off messages before the next midi note on message and also when
+  the sequencer is stopped. This allows better interaction with external synths.
+- Note names - instead of showing -63 to 64 it will show real note names like C, C# D, etc. This is useful when using the LXR as a sequencer
+- Midi Note. Each voice has an assigned midi note. If this is set to C0 then it will play the note assigned to the sequencer step, otherwise it will play this note. This replaces the standard behavior and allows one to set the note that is played for the drum sound (old behavior was to have the note fixed when in trigger mode).
+- Midi mode has been removed (the above feature allows more flexibility)
+- LFO target fixes - Setting LFO targets is now much easier. The list of targets is straightforward and more descriptive. There are no missing entries or dupes.
+- Velocity target - Same type of fix as LFO target
+- Automation target - Same type of fix as LFO target. Also menu is more descriptive.
+- Separate open and closed hi-hat EG decay onto separate drum buttons to make it clearer which one is being edited.
+- Fixed some minor bugs that were annoying me.
+- Add Eclipse CDT support for AVR. This allows all development of front and mainboard to be done in one 
+  Eclipse workspace, and gets rid of the need for installing AVR studio
+- Remove generated files. These makefiles are generated by eclipse and contain local paths etc. No need
+  for them in the source tree.
+- Fix firmware image builder to accept command line parameters, and create new batch file
+
+
+
+Firmware v0.27
+---------------------------
+- trigger IOs init value fixed. (are now zero after power up)
+- detail view exit on sub page change
+- detail view exit when knob is moved
+- added step position reset to zero on pattern change
+- fixed pitch EG mod value influencing final OSC pitch
+
+Firmware v0.26
+---------------------------
+merged with rudeogs changes:
+- Pattern/Kit save will use a proper cursor when editing names
+- Midi Off - Will now send midi note off messages before the next midi note on message and also when the sequencer is stopped. This allows better interaction with external synths.
+- Note names - instead of showing -63 to 64 it will show real note names like C, C# D, etc. This is useful when using the LXR as a sequencer
+- Midi Note. Each voice has an assigned midi note. If this is set to C0 then it will play the note assigned to the sequencer step, otherwise it will play this note. This replaces the standard behavior and allows one to set the note that is played for the drum sound (old behavior was to have the note fixed when in trigger mode).
+- Midi mode has been removed (the above feature allows more flexibility)
+- LFO target fixes - Setting LFO targets is now much easier. The list of targets is straightforward and more descriptive. There are no missing entries or dupes.
+- Velocity target - Same type of fix as LFO target
+- Automation target - Same type of fix as LFO target. Also menu is more descriptive.
+- Separate open and closed hi-hat EG decay onto separate drum buttons to make it clearer which one is being edited.
+- Fix firmware image builder to accept command line parameters, and create new batch file
+- screensaver bug on load/save page fixed
+- encoder works for changing mod destinations in detaled view
+
+Firmware v0.25
+---------------------------
+- added user sample (.wav) import from SD card
+
+Firmware v0.24a
+---------------------------
+- fixed parameter wrap from 255 to 0 with encoder for morph parameter
+- NRPNs for track mute added (NRPN 200 to 206)
+- fixed external MIDI sync bug when starting in external mode
+- internal MIDI Clock is no longer transmitted when running synced to an external clock
+- mute also mutes incoming midi notes
+- nrpn mute led update only when mute leds are visible
+- reorder the perf. params to: shu, Rol, mrp, sr
+- locking a parameter to single step (hold step mode) will not change the global parameter value
+- LFO crash fixed
+
+Firmware v0.23
+---------------------------
+- Fixed inverted trigger outputs
+- added simple trigger clock input code
+- reduced AVR power consumption
+- fixed screensaver timer bug
+- added midi out pitch/note mode
+
+Firmware v0.22
+---------------------------
+- fixed unstable filter with f=127 and high resonance
+- fixed crash with one shot trigger button 8
+- fixed blank screen when switching to performance mode
+- renamed "Sound" to "Kit"
+- more extreme shuffle possible
+- added swing to external clock sync mode
+
+Firmware v0.21
+---------------------------
+- improved volume envelope resolution
+- improved volume envelope reaction times (more clickyness!)
+- improved snap transient mode
+- transients have short names instead of numbers
+- corrected label "Velocity modulation" to "Volume modulation" on the velocity mod page.
+
+
+Firmware v0.20
+---------------------------
+- fixed clear menu missing characters
+- added toggle between 1st/2nd menu page for step parameter menu
+- changed transient wave 0 to 'snap' control (short pitch EG)
+- changed transient wave 1 to wave offset
+- all transient waves shifted by 2 (old wave 0 is now wave 2)
+- transient wave selection limited to available waves
+- optimized overall snappyness of vol EG 
+- changed "Note Volume" to "Note Velocity" on step properties page
+
+Firmware v0.19
+---------------------------
+- multiple step buttons can be pressed simultaniously to add/remove steps
+- fixed double triggering of select buttons in voice mode (introduced in last update)
+- fixed mod target bug in saved morph sounds
+- fixed some buttons functions
+- added menu toggle to settings mennu
+- mod target reselection necessary after target voice change - fixed
+- synth now keeps track of sound,preset and morphsound preset numbers separatrely
+- changed mixer routine to use saturating math (prevent integer overflow clipping)
+- 1st knob selects type (sound, pattern, morph) on load/save page
+- load/save type is not reset anymore (stays on last selected item)
+- fixed roll rate initialisation after power up
+- LED update for recorded notes
+- prevent double notes in midi recording mode (1st substep is cleared on inative main steps)
+
+
+Firmware v0.18
+---------------------------
+- added quick naming scheme 
+- fixed automation parameter edit bug with chained patterns
+- fixed empty menu pages bug (with shift)
+- default setting for pattern repeat changed from 1 to 0
+
+Firmware v0.17
+---------------------------
+- fixed midi sync problems
+- fixed sub step LED update 
+
+
+Firmware v0.16 
+---------------------------
+- increased absolute noise volume on snare voice (voice 4)
+- increased transient volume
+- fixed rapid rotary encoder movement range bug
+- fixed step mode display glitch
+- fixed diappearing chaselight with shift button in perf. mode
+- fixed empty display page when changing modes
+- increased DIN scan rate
+- fixed display error in voice mode when using shift
+
+Firmware v0.15 (5.5.2013)
+---------------------------
+- Mod target pan fixed
+- mod target LFO speed fixed
+- Mod target drum 1-3 FM freq fixed
+- fixed LFO sync times
+- added toggle via select button if menu has 2 pages
+- added some new transient samples
+- added global midi channel to settings menu 
+- fixed flickering display when changing voices
+- added/fixed save morph sound function
+
+
+Firmware v0.14 (27.4.2013)
+---------------------------
+- Fixed LED display in performance mode
+- changed name on splashscreen
+- added status LED for viewed (blinking) and playing (lit) pattern in perf. mode
+- prevent pattern option update while pattern options are edited
+
+Firmware v0.13 (27.4.2013)
+---------------------------
+- Fixed SD card error messages
+- copy operation is now aborted when the copy button is released
+- Fixed faulty sub step LED update (notes would not show up on the last steps of a pattern)
+- Fixed: LEDs stop blinking (probably)
+- Fixed buggy active step LEDs in step edit mode
+- Fixed layout bug on 2 page menu sections
+- EG Repeat count offset fixed (repeat=1 yielded in 2 repeats)
+- Improved preset morph smoothness
+- reduced tempo of blinking LEDs
+- fixed initial preset load on boot
+- fixed inverted panning
+
+Firmware v0.12 (26.4.2013)
+---------------------------
+- Fixed noise problems with output routing
+- Added visual feedback to bootloader
+- added 'additional page available' sign to display
+- fixed 'Firmware error' message in bootloader
+
+
+Firmware v0.1
+---------------------------
+Initial release

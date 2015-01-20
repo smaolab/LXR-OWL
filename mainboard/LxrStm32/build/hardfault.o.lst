@@ -1,0 +1,66 @@
+ARM GAS  ./src/hardfault.S 			page 1
+
+
+   1              	/*
+   2              	 * hardfault.S
+   3              	 *
+   4              	 *  Created on: 24.08.2012
+   5              	 *      Author: Julian
+   6              	 * see http://blog.frankvh.com/2011/12/07/cortex-m3-m4-hard-fault-handler/
+   7              	 * ------------------------------------------------------------------------------------------------
+   8              	 *  Copyright 2013 Julian Schmidt
+   9              	 *  Julian@sonic-potions.com
+  10              	 * ------------------------------------------------------------------------------------------------
+  11              	 *  This file is part of the Sonic Potions LXR drumsynth firmware.
+  12              	 * ------------------------------------------------------------------------------------------------
+  13              	 *  Redistribution and use of the LXR code or any derivative works are permitted
+  14              	 *  provided that the following conditions are met:
+  15              	 *
+  16              	 *       - The code may not be sold, nor may it be used in a commercial product or activity.
+  17              	 *
+  18              	 *       - Redistributions that are modified from the original source must include the complete
+  19              	 *         source code, including the source code for all components used by a binary built
+  20              	 *         from the modified sources. However, as a special exception, the source code distributed
+  21              	 *         need not include anything that is normally distributed (in either source or binary form)
+  22              	 *         with the major components (compiler, kernel, and so on) of the operating system on which
+  23              	 *         the executable runs, unless that component itself accompanies the executable.
+  24              	 *
+  25              	 *       - Redistributions must reproduce the above copyright notice, this list of conditions and t
+  26              	 *         following disclaimer in the documentation and/or other materials provided with the distr
+  27              	 * ------------------------------------------------------------------------------------------------
+  28              	 *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+  29              	 *   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PAR
+  30              	 *   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, IN
+  31              	 *   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SU
+  32              	 *   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY T
+  33              	 *   WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+  34              	 *   USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  35              	 * ------------------------------------------------------------------------------------------------
+  36              	 */
+  37              	
+  38              	
+  39              	
+  40              	.syntax unified
+  41              	.cpu cortex-m4
+  42              	.thumb
+  43              	
+  44              	.global HardFault_Handler
+  45              	.extern hard_fault_handler_c
+  46              	
+  47              	HardFault_Handler:
+  48 0000 1EF0040F 	  TST LR, #4
+  49 0004 0CBF     	  ITE EQ
+  50 0006 EFF30880 	  MRSEQ R0, MSP
+  51 000a EFF30980 	  MRSNE R0, PSP
+  52 000e FFF7FEBF 	  B hard_fault_handler_c
+  53              	
+  54              	
+ARM GAS  ./src/hardfault.S 			page 2
+
+
+DEFINED SYMBOLS
+   ./src/hardfault.S:47     .text:0000000000000000 HardFault_Handler
+   ./src/hardfault.S:48     .text:0000000000000000 $t
+
+UNDEFINED SYMBOLS
+hard_fault_handler_c
