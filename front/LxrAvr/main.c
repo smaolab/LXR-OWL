@@ -83,7 +83,7 @@ int main(void)
 	//lcd_string_F(PSTR("LXR Drums V"));
 
 	// rstephane -----
-	lcd_string_F(PSTR("OWL by Egouf"));
+	lcd_string_F(PSTR("OWL Egnouf"));
 
 	lcd_string(FIRMWARE_VERSION);
 #endif

@@ -203,6 +203,48 @@ float decimateAdv(float x, int bits, float rate)
 	return y;
 }
 
+/*
+
+
+*/
+
+/* Wave Shaper Simple
+Type : waveshaper
+References : Posted by Bram de Jong
+
+http://musicdsp.org/archive.php?classid=4#153
+
+*/
+
+float waveshape_disto( float in, float amount ) {
+	return in*(abs(in) + amount)/(in*in + (amount-1)*abs(in) + 1);
+}
+
+
+
+/*
+Waveshaper
+
+References : Posted by Partice Tarrabia and Bram de Jong
+
+Notes :
+amount should be in [-1..1[ Plot it and stand back in astonishment! ;)
+
+http://musicdsp.org/archive.php?classid=4#153
+*/
+
+float waveshape_tarabia( float in, float amount ) {
+
+float x, y, k;
+
+x = in; // input in [-1..1]
+k = 2*amount/(1-amount); // amount in [-1..1]
+
+y = (1+k)*x/(1+k*abs(x));
+
+return y;  // output
+}
+
 
 
 //--------------------------------------------------
@@ -328,6 +370,9 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 
   // OTO FX
   uint8_t bitRotate;
+
+	// FoldBAck Distortion
+	float threshold;
 
   // Simple Compressor
   float sig, val, sensitivity, compression;
@@ -521,19 +566,42 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 		case 7 :
 		// DECIMATOR Advanced (New way of doing bit reduced... hey hey!)
 		// MusicDSP.org..
-		reducedBits=fx1 / 16;
-		decimateRate = fx2 / 127.0;
+			reducedBits=fx1 / 16;
+			decimateRate = fx2 / 127.0;
+
+			for(i =0; i < size; i++)
+			{
+
+				deci_x=returnFloat(buf[i]);
+				deci_y=decimateAdv(deci_x, reducedBits, 1.0-decimateRate);
+				bufTemp[i] = returnInt(deci_y);
+			}
+			break;
+
+	case 8 :
+
+		// Waveshaper
 
 		for(i =0; i < size; i++)
 		{
-
-			deci_x=returnFloat(buf[i]);
-			deci_y=decimateAdv(deci_x, reducedBits, 1.0-decimateRate);
-			bufTemp[i] = returnInt(deci_y);
+			x = returnFloat(bufTemp[i]);
+			x=waveshape_tarabia(x, fx1/127.f);
+			bufTemp[i] = returnInt(x) ;
 		}
-break;
+		break;
 
-case 8 :
+		case 9 :
+
+		// Another Waveshaper
+
+		for(i =0; i < size; i++)
+		{
+			x = returnFloat(bufTemp[i]);
+			x=waveshape_disto(x, fx1/127.f);
+			bufTemp[i] = returnInt(x) ;
+		}
+		break;
+
 
 
 				/* OCTAVE DOWN
