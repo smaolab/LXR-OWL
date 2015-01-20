@@ -425,14 +425,14 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
       if (a != 0.0f && b != 1.0f) {
         // compression
         sig = 1.0f;
-        val = clip(bufTemp[i]/32767.f);
+        val = returnFloat(bufTemp[i]);
 
         if (val < 0.0f) {
           sig = -1.0f;
         }
 
         compressedSignal=clip(sig * a * val * val + b * val);
-        bufTemp[i] = compressedSignal*32767.f;
+        bufTemp[i] = returnInt(compressedSignal);
       }
     }
     break;
@@ -463,26 +463,26 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 
           for(i = 0; i < size; i++)
           {
-            x = bufTemp[i]/32767.f;
+            x = returnFloat(bufTemp[i]);
             y1 = lambda*y1 + (1-lambda)*x;
-            bufTemp[i] = clip(filterGain*y1)*32767.f;
+            bufTemp[i] = returnInt(filterGain*y1);
           }
           break;
 
     // DECIMATOR xx bits / Half SR
 		// MusicDSP.org.. see the main function to get the author name.
     case 4 :
-			reducedBits=fx1 / 16;
-      decimateRate = fx2 / 127.0;
+		reducedBits=fx1 / 16;
+		decimateRate = fx2 / 127.0;
 
-      for(i =0; i < size; i++)
-			{
+		for(i =0; i < size; i++)
+		{
 
-				deci_x=buf[i]/32767.f;
-				deci_y=decimate(deci_x, reducedBits, 1.0-decimateRate);
-				bufTemp[i] = (deci_y*32767.f);
-			}
-			break;
+			deci_x=returnFloat(buf[i]);
+			deci_y=decimate(deci_x, reducedBits, 1.0-decimateRate);
+			bufTemp[i] = returnInt(deci_y);
+		}
+		break;
 
     // BIT - REVERSED
 		case 5 :
@@ -527,24 +527,14 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 		for(i =0; i < size; i++)
 		{
 
-			deci_x=buf[i]/32767.f;
+			deci_x=returnFloat(buf[i]);
 			deci_y=decimateAdv(deci_x, reducedBits, 1.0-decimateRate);
-			bufTemp[i] = (deci_y*32767.f);
+			bufTemp[i] = returnInt(deci_y);
 		}
 break;
 
 case 8 :
-reducedBits=fx1 / 16;
-decimateRate = fx2 / 127.0;
 
-for(i =0; i < size; i++)
-{
-
-	deci_x=returnFloat(buf[i]);
-	deci_y=decimate(deci_x, reducedBits, 1.0-decimateRate);
-	bufTemp[i] = returnInt(deci_y);
-}
-break;
 
 				/* OCTAVE DOWN
 					for(i =0; i < size; i++)
