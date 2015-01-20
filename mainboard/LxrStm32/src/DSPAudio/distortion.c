@@ -39,7 +39,7 @@
 * Note that this program has been modified to include new functions.
 * I will make a better code and separate the FX from this file later on.
 * Meanwhile, you will find below the authors of certain codes I have used and modified. The codes are all LXR compatible (GNU GPL Licence)
-* I thank: MusicDSP.ORG, Sonic Potion Community, OWL Project hoxtonowl.com
+* I thank: MusicDSP.ORG, Sonic Potion Community, OWL Project hoxtonowl.com, and MAZBOX.
 *
 * The whole modified code is licenced under the same licence of the orginal code: GNU GPL V2
 *
@@ -159,6 +159,12 @@ float distortion_calcSampleFloat(const Distortion *dist, float x)
 
 //--------------------------------------------------
 // rstephane: decimate
+// Code from musicdsp.org
+// Decimator
+// Type : Bit-reducer and sample&hold unit
+// References : Posted by tobyear[AT]web[DOT]de
+// http://musicdsp.org/showArchiveComment.php?ArchiveID=124
+
 float decimate(float x, int bits, float rate)
 {
 	// y is the ouput and x the input (single)
@@ -204,6 +210,8 @@ float calcRange(uint8_t valueAmount, float old_min ,float old_max,float new_min,
 
 
 /* The clip function works to sanitize the data if it's to big (could happen) it's cut down to size*/
+// inspired by http://hoxtonowl.com/patches-2/ codes...
+
 float clip(float in)
 {
         if (in >= 1.0)
@@ -217,9 +225,9 @@ float clip(float in)
 
 //------------------------------
 //
-// Octave Down adapted from
+// Octave Down code adapted from
 // https://github.com/mazbox/OwlPatches
-//
+// original author: mazbox
 //------------------------------
 
 // Octave Down
@@ -348,7 +356,9 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 	switch(maskType)
 	{
 
-    // SIMPLE COMPRESSOR
+    // QOMPRESSOR
+		// original author: blondinou
+		// http://hoxtonowl.com/patches-2/
     case 1 :
     sensitivity = fx1/127.0f;
     compression = fx2/127.0f;
@@ -381,7 +391,7 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
     }
     break;
 
-
+		// author: Rstephane
     // OTO biscuit FX (Value one is Compresseur alike)
 		case 2 :
       bitRotate = fx2/8;
@@ -400,7 +410,8 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 
 
 		case 3 :
-          // Strange Low Pass Filter (OWL program)
+          // Strange Low Pass Filter (OWL team)
+					// http://hoxtonowl.com/patches-2/
           lambda=fx1/127.0f; // 0.0 .. 1.0
           filterGain=fx2/127.0f; // 0.0 .. 1.0
 
@@ -413,6 +424,7 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
           break;
 
     // DECIMATOR xx bits / Half SR
+		// MusicDSP.org.. see the main function to get the author name.
     case 4 :
 			reducedBits=fx1 / 16;
       decimateRate = fx2 / 127.0;
@@ -426,7 +438,7 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 			}
 			break;
 
-      // BIT - REVERSED
+    // BIT - REVERSED
 		case 5 :
         bitRotate = fx1/32;
 
@@ -601,7 +613,8 @@ if (maskType!=0)
 //
 // PARAMETRIC EQ
 // NOT WORKING
-//
+// original author: OWL Team
+// http://hoxtonowl.com/patches-2/
 //------------------------------
 void initStateVariables(){
   eq_x1=0.f;

@@ -14,18 +14,16 @@ Select the PERF button, then click again the PERF button to access the sub menu:
 
 ### 4. Sounds effect (Compressor, Bit crusher, Bit reduce, OTO biscuit FX alike, Bit reverse, etc)
 
-Select the PERF button, then click again the PERF button to access the sub menu: 
-# You will see a menu FX VL1 VL2 VL3. 
-# FX : Select the FX you want to apply : 
-- 1: Simple compressor (VL1 = sensitivity, VL2 = Compression level, VL3 = Dry/wet) 
-- - 2: Bit rotate -
-- 3: not working 
-- 4: 
-- 5: 
-- 6: 
-- 7: 
-- 8: 
-- 9-16: not working
+Select the PERF button, then click again the PERF button to access the sub menu. You will see a menu "FX VL1 VL2 VL3".
+
+# FX : Select the FX you want to apply :
+- 1: Simple compressor (VL1 = sensitivity, VL2 = Compression level, VL3 = Dry/wet)
+- 2: OTO biscuit - (VL1 = Forward/Backward, VL2 = Bit Rotate level, VL3 = Dry/wet)
+- 3: Strange Low Pass Filter (VL1 = Lambda, VL2 = Filter Gain, VL3 = Dry/wet)
+- 4: Decimator (VL1 = ReduceBits, VL2 = Rate, VL3 = Dry/wet)
+- 5: Bit Reversed (VL1 = BitRotate, VL2 = nothing, VL3 = Dry/wet)
+- 6: Small Bit Reversed (VL1 = VL2 = nothing, level, VL3 = Dry/wet)
+- 7-16: not working yet.
 
 Enjoy!
 
@@ -102,7 +100,7 @@ Let's start!
 ====================================
 
 We need to add in our MAC session a PATH to both compilers (and libs), here is mine:
-	
+
 	export PATH=$PATH:/usr/local/CrossPack-AVR-20131216/bin:/usr/local/CrossPack-AVR-20131216/:/usr/include:/usr/local/CrossPack-AVR-20131216/avr/include:/usr/local/gcc-arm-none-eabi-4_8-2014q1/bin
 	export ARM_TOOLKIT_ROOT=/usr/local/gcc-arm-none-eabi-4_8-2014q1
 	export AVR_TOOLKIT_ROOT=/usr/local/CrossPack-AVR-20131216
@@ -117,15 +115,15 @@ I advice you to grab the code either from :
 - Julian repository on GITHUB https://github.com/SonicPotions/LXR -> but you may have issues as this code contains wrong backslashes in certain area of the code. Should be soon fixed.
 
 - PLD repository https://github.com/patrickdowling/LXR -> but you may also have issues with this code containing wrong backslashes in certain area of the code.
-    
-- rudeog repository https://github.com/rudeog/LXR -> this one is OKAY with many extra features compared to Julian code. 
 
-- rstephane repository https://github.com/rstephane/LXR  -> this one is OKAY, it is equivalent to Julian CODE without the wrong backslashes. 
+- rudeog repository https://github.com/rudeog/LXR -> this one is OKAY with many extra features compared to Julian code.
+
+- rstephane repository https://github.com/rstephane/LXR  -> this one is OKAY, it is equivalent to Julian CODE without the wrong backslashes.
 
 Of course once downloaded, you should extract the code and copy it to any folder you like.
 On my side I did copied it under: /Users/music/Documents/workspace/LXR/
 
-5- MACOS specific makefile 
+5- MACOS specific makefile
 ====================================
 
 
@@ -140,7 +138,7 @@ Download it!
 Once downloaded, copy it at the root PATH of the code you dowloaded in STEP 4.
 In my case, I copied the makefile of PLD into /Users/music/Documents/workspace/LXR/
 
-If you have taken the whole LXR code from @PLD or rstephane (@egnouf) you don't need to download once more the Makefile, it is provided within ! 
+If you have taken the whole LXR code from @PLD or rstephane (@egnouf) you don't need to download once more the Makefile, it is provided within !
 
 The Makefile of rstephane is a copy of the one provided by @PLD
 
