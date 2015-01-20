@@ -1,6 +1,6 @@
 LXR-marimba Drumsynth Firmware
 ====================================
-This version is a fork from PLD/RUDEOG that contains all original code and many new features (I called this version MARIMBA ! ):
+This version is a fork from PLD/RUDEOG that contains all original code and many new features (I called this version OWL as some of the plug ins added are coming from the nice project OWL http://hoxtonowl.com/patches-2/ ):
 
 ### 1. You can select among 72 pre filled patterns for each voice
 
@@ -12,11 +12,20 @@ Select a track (1-7), then click on the button VOICE, then click on the OSC menu
 
 Select the PERF button, then click again the PERF button to access the sub menu:  You will see a menu called LEN, to arm the looping effects, turn the knob until you reach 127 and then turn down little by little the knob (until ZERO) to listen to the effect!
 
-### 4. OTO Biscuit Sounds effect
+### 4. Sounds effect (Compressor, Bit crusher, Bit reduce, OTO biscuit FX alike, Bit reverse, etc)
 
-Select the PERF button, then click again the PERF button to access the sub
-menu:  You will see a menu called OTO and AMT.
-Turn the OTO knob between 1 and 15 (15 different swapping bits mode) and then turn the AMT button to hear the FX
+Select the PERF button, then click again the PERF button to access the sub menu: 
+# You will see a menu FX VL1 VL2 VL3. 
+# FX : Select the FX you want to apply : 
+- 1: Simple compressor (VL1 = sensitivity, VL2 = Compression level, VL3 = Dry/wet) 
+- - 2: Bit rotate -
+- 3: not working 
+- 4: 
+- 5: 
+- 6: 
+- 7: 
+- 8: 
+- 9-16: not working
 
 Enjoy!
 
