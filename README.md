@@ -1,4 +1,4 @@
-LXR-marimba Drumsynth Firmware
+LXR-OWL Drumsynth Firmware
 ====================================
 This version is a fork from PLD/RUDEOG that contains all original code and many new features (I called this version OWL as some of the plug ins added are coming from the nice project OWL http://hoxtonowl.com/patches-2/ ):
 
