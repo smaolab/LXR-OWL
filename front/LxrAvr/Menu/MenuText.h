@@ -321,7 +321,7 @@ const char shortNames[][4] PROGMEM  =
 	{"FW"}, // rstephane: FX type
 	{"VL1"}, // rstephane: PAR 1
 	{"VL2"}, // rstephane: PAR 2
-	{"VL3"}, // rstephane: PAR 3
+	{"WET"}, // rstephane: PAR 3
 	{"VL4"},
 	{"VL5"},
 	{"VL6"},
@@ -453,7 +453,7 @@ const char longNames[][16] PROGMEM =
 	{"Value 4"},
 	{"Value 5"},
 	{"Value 6"},
-	{"Value 7"},  
+	{"Value 7"},
 
 };
 
