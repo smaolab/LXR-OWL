@@ -261,7 +261,7 @@ float returnFloat(int16_t in)
 	return out;
 }
 
-int16_t returnInt16(float in)
+int16_t returnInt(float in)
 {
 	int16_t out;
 	out = in * 32767.f;
