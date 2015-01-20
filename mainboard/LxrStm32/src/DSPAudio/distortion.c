@@ -184,6 +184,27 @@ float decimate(float x, int bits, float rate)
 	return y;
 }
 
+float decimateAdv(float x, int bits, float rate)
+{
+	// y is the ouput and x the input (single)
+	// bits; // bits from 1 to 32 ;-) useless 32 !!!
+	// rate; // sample rate from 0 to 1 , 1 is the orignal rate sample.
+	float quantum = powf( 2.0f, bits );
+	float y=0;
+
+	cnt=cnt+rate;
+	if (cnt>=1)
+	{
+		cnt=cnt-1;
+		y = floorf( x * quantum ) / quantum;
+
+	}
+
+	return y;
+}
+
+
+
 //--------------------------------------------------
 // rstephane: Reverse
 uint16_t reverseBits(uint16_t num)
@@ -222,6 +243,31 @@ float clip(float in)
         return in;
 }
 
+int16_t clipInt(int16_t in)
+{
+	if (in >= 32767)
+		return 32767;
+		else if (in < -32767)
+		return -32768;
+
+		return in;
+}
+
+float returnFloat(int16_t in)
+{
+	float out;
+	out = in / 32767.f;
+	out = clip(out);
+	return out;
+}
+
+int16_t returnInt16(float in)
+{
+	int16_t out;
+	out = in * 32767.f;
+	out = clipInt(out);
+	return out;
+}
 
 //------------------------------
 //
@@ -410,8 +456,8 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
 
 
 		case 3 :
-          // Strange Low Pass Filter (OWL team)
-					// http://hoxtonowl.com/patches-2/
+    // Strange Low Pass Filter (OWL team)
+		// http://hoxtonowl.com/patches-2/
           lambda=fx1/127.0f; // 0.0 .. 1.0
           filterGain=fx2/127.0f; // 0.0 .. 1.0
 
@@ -473,56 +519,33 @@ void calcFxBlock(uint8_t maskType, int16_t* buf,const uint8_t size, uint8_t fx1,
           break;
 					// REVERSE REVERB
 		case 7 :
-					/* REVERSE REVERB
-					memset(reverb_buffer, 0, sizeof(reverb_buffer)); // il faut sortir cet instruction de cet boucle!!!
+		// DECIMATOR Advanced (New way of doing bit reduced... hey hey!)
+		// MusicDSP.org..
+		reducedBits=fx1 / 16;
+		decimateRate = fx2 / 127.0;
 
-					reverb_scale = fx1/127.0f;		//get reverb length from knob
-					if(reverb_scale<0.1)
-					reverb_scale=0.1;	//apply lower limit to reverb length
-
-					reverb_time = round(reverb_scale*REVERSE_REVERB_BUF_LENGTH/2);			//apply scaling factor to the window size to obtain reverb_time (in samples)
-
-					mod = reverb_time%size;		//ensure that reverb_time is an even multiple of audio buffer size
-					reverb_time -= mod;
-					if(reverse_cnt>reverb_time)
-					reverse_cnt = 0;
-
-
-					level = fx2/127.0f;		//get output level from knob
-					level*=2;
-
-					for(i=0; i<size; i++)
-				{
-				reverb_buffer[REVERSE_REVERB_BUF_LENGTH-1-i-reverb_index*size] = reverb_buffer[i+reverb_index*size];	//load reverse into end of buffer
-				val = clip(bufTemp[i]/32767.f);
-				reverb_buffer[i+reverb_index*size] = val;	//load number of samples into the reverse buffer equal to size of audio buffer
-
-				if (reverse_flag == 1)
-			{
-			val = clip(level*((1-wet)*val+wet*reverb_buffer[REVERSE_REVERB_BUF_LENGTH-1-reverse_cnt]*abs(reverse_cnt-reverb_time)*reverse_cnt/reverb_time/200));
-			reverse_cnt++;
-			if(reverse_cnt==reverb_time)
+		for(i =0; i < size; i++)
 		{
-		reverse_cnt=0;
-		reverse_flag=0;
-	}
 
-}
-else val = clip(level*val);
-
-bufTemp[i] = val*32767.f;
-}
-
-reverb_index++;		//increment the window index
-
-if(reverse_flag==0)
-{
-reverb_index=0;				//reset the window index to 0
-reverse_flag = 1;			//set flag to trigger reverse
-}*/
+			deci_x=buf[i]/32767.f;
+			deci_y=decimateAdv(deci_x, reducedBits, 1.0-decimateRate);
+			bufTemp[i] = (deci_y*32767.f);
+		}
 break;
 
 case 8 :
+reducedBits=fx1 / 16;
+decimateRate = fx2 / 127.0;
+
+for(i =0; i < size; i++)
+{
+
+	deci_x=returnFloat(buf[i]);
+	deci_y=decimate(deci_x, reducedBits, 1.0-decimateRate);
+	bufTemp[i] = returnInt(deci_y);
+}
+break;
+
 				/* OCTAVE DOWN
 					for(i =0; i < size; i++)
 						xOctDown[i] = (float) buf[i];
@@ -565,7 +588,7 @@ case 8 :
 				}
 
 				for(i =0; i < size; i++)
-					bufTemp[i] = (int16_t) xOctDown[i]; //*32767.0f;
+					bufTemp[i] = (int16_t) xOctDown[i]; // *32767.0f;
       break;
 		case 9 :
 
@@ -589,7 +612,105 @@ case 8 :
 			for(i=1;i<size;i++)
 				bufTemp[i] = buf[size-i-1];
 			break; */
-		default:
+			/* REVERSE REVERB
+			memset(reverb_buffer, 0, sizeof(reverb_buffer)); // il faut sortir cet instruction de cet boucle!!!
+
+			reverb_scale = fx1/127.0f;		//get reverb length from knob
+			if(reverb_scale<0.1)
+			reverb_scale=0.1;	//apply lower limit to reverb length
+
+			reverb_time = round(reverb_scale*REVERSE_REVERB_BUF_LENGTH/2);			//apply scaling factor to the window size to obtain reverb_time (in samples)
+
+			mod = reverb_time%size;		//ensure that reverb_time is an even multiple of audio buffer size
+			reverb_time -= mod;
+			if(reverse_cnt>reverb_time)
+			reverse_cnt = 0;
+
+
+			level = fx2/127.0f;		//get output level from knob
+			level*=2;
+
+			for(i=0; i<size; i++)
+		{
+		reverb_buffer[REVERSE_REVERB_BUF_LENGTH-1-i-reverb_index*size] = reverb_buffer[i+reverb_index*size];	//load reverse into end of buffer
+		val = clip(bufTemp[i]/32767.f);
+		reverb_buffer[i+reverb_index*size] = val;	//load number of samples into the reverse buffer equal to size of audio buffer
+
+		if (reverse_flag == 1)
+	{
+	val = clip(level*((1-wet)*val+wet*reverb_buffer[REVERSE_REVERB_BUF_LENGTH-1-reverse_cnt]*abs(reverse_cnt-reverb_time)*reverse_cnt/reverb_time/200));
+	reverse_cnt++;
+	if(reverse_cnt==reverb_time)
+{
+reverse_cnt=0;
+reverse_flag=0;
+}
+
+}
+else val = clip(level*val);
+
+bufTemp[i] = val*32767.f;
+}
+
+reverb_index++;		//increment the window index
+
+if(reverse_flag==0)
+{
+reverb_index=0;				//reset the window index to 0
+reverse_flag = 1;			//set flag to trigger reverse
+}*/
+
+/*
+/* REVERSE REVERB
+memset(reverb_buffer, 0, sizeof(reverb_buffer)); // il faut sortir cet instruction de cet boucle!!!
+
+reverb_scale = fx1/127.0f;		//get reverb length from knob
+if(reverb_scale<0.1)
+reverb_scale=0.1;	//apply lower limit to reverb length
+
+reverb_time = round(reverb_scale*REVERSE_REVERB_BUF_LENGTH/2);			//apply scaling factor to the window size to obtain reverb_time (in samples)
+
+mod = reverb_time%size;		//ensure that reverb_time is an even multiple of audio buffer size
+reverb_time -= mod;
+if(reverse_cnt>reverb_time)
+reverse_cnt = 0;
+
+
+level = fx2/127.0f;		//get output level from knob
+level*=2;
+
+for(i=0; i<size; i++)
+{
+reverb_buffer[REVERSE_REVERB_BUF_LENGTH-1-i-reverb_index*size] = reverb_buffer[i+reverb_index*size];	//load reverse into end of buffer
+val = clip(bufTemp[i]/32767.f);
+reverb_buffer[i+reverb_index*size] = val;	//load number of samples into the reverse buffer equal to size of audio buffer
+
+if (reverse_flag == 1)
+{
+val = clip(level*((1-wet)*val+wet*reverb_buffer[REVERSE_REVERB_BUF_LENGTH-1-reverse_cnt]*abs(reverse_cnt-reverb_time)*reverse_cnt/reverb_time/200));
+reverse_cnt++;
+if(reverse_cnt==reverb_time)
+{
+reverse_cnt=0;
+reverse_flag=0;
+}
+
+}
+else val = clip(level*val);
+
+bufTemp[i] = val*32767.f;
+}
+
+reverb_index++;		//increment the window index
+
+if(reverse_flag==0)
+{
+reverb_index=0;				//reset the window index to 0
+reverse_flag = 1;			//set flag to trigger reverse
+}*/
+
+
+default:
 			fxMaskType = 0; // we switch off the effect
 			maskType = 0;
 			break;

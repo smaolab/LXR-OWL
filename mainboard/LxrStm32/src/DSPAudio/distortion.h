@@ -65,5 +65,6 @@ float calcCompressionBlock(int16_t* buf,const uint8_t size, int8_t threshold,uin
 void calcRingModulatorBlock(int16_t* buf, uint8_t size, double modulatorFrequency, double carrierFrequency,double modulatorAngle);
 void calcLofiBlock(int16_t* buf, uint8_t size, float normfreq, uint8_t bits );
 float decimate(float x, int bits, float rate);
+float decimateAdv(float x, int bits, float rate);
 uint16_t reverseBits(uint16_t num);
 #endif /* DISTORTION_H_ */
