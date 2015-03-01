@@ -27,22 +27,23 @@ You will see a menu called RND turn the knob from OFF to ON to listen to the new
 
 ### 4. You can make a LOOP/DIVIDE effect like on the Arturia Spark machine
 * Select the PERF button, then,
-** Choose from steps 9 to 16.
-** Step 9 = Reset the loop to its original state.
-** Step 10 = Loop from x to y
-** Step 11 = Loop from x to y
-** Step 12 = Loop from x to y
-** Step 13 = Loop from x to y
-** Step 14 = Loop from x to y
-** Step 15 = Loop from x to y
-** Step 16 = Loop from x to y
+* Choose from steps 9 to 16.
+* Step 9 = Reset the loop to its original state.
+* Step 10 = Loop from x to y
+* Step 11 = Loop from x to y
+* Step 12 = Loop from x to y
+* Step 13 = Loop from x to y
+* Step 14 = Loop from x to y
+* Step 15 = Loop from x to y
+* Step 16 = Loop from x to y
 
 
 ### 4. Sounds effect (Compressor, Bit crusher, Bit reduce, OTO biscuit FX alike, Bit reverse, etc)
 * Select the PERF button, then,
 * Click again the PERF button to access the sub menu. 
-* You will see a menu "FX VL1 VL2 WET".
-* FX : Select the FX you want to apply :
+* You will see a menu **FX VL1 VL2 WET**
+
+# FX : Select the FX you want to apply :
 - 1: Simple compressor (VL1 = sensitivity, VL2 = Compression level)
 - 2: OTO biscuit - (VL1 = Forward/Backward, VL2 = Bit Rotate level)
 - 3: Strange Low Pass Filter (VL1 = Lambda, VL2 = Filter Gain)
