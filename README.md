@@ -46,7 +46,8 @@ This version is a fork from PLD/RUDEOG that contains all original code and many 
 - 7: Tabaria Wave Shaper
 - 8: Disto Wave Shaper
 - 9-16: not working yet.
-# if you use the FXs, they will bring a lot of overdrive and 8 bits sounds. To fuly enjoy the sounds, mute the track 1, the BD/kick.. otherwise you will get very strong OVERDRIVE sounds :-)
+
+## Advice: If you use the FXs, they will bring a lot of overdrive and 8 bits sounds : To fully enjoy the sounds, mute the track1 (the BD/kick), otherwise you may get very strong OVERDRIVE sounds.
 
 Enjoy!
 :-)
