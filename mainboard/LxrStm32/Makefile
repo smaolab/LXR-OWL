@@ -20,9 +20,9 @@ else
 DEFINES += -DNDEBUG
 endif
 
-ifndef OPTIMIZE
-OPTIMIZE=3
-OPTIMIZE=fast
+ifndef ARM_OPTIMIZE
+ARM_OPTIMIZE=3
+#ARM_OPTIMIZE=fast
 endif
 
 # if VERBOSE is defined, spam output
@@ -99,11 +99,11 @@ INCLUDES += -I"./src/Hardware/USB"
 INCLUDES += -I"./src/MIDI"
 INCLUDES += -I"./src/Sequencer" 
 
-ARCHFLAGS = -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ARCHFLAGS = -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 
 
 CFLAGS += $(DEFINES) $(INCLUDES)
 CFLAGS += $(ARCHFLAGS)
-CFLAGS += -O$(OPTIMIZE) -ffunction-sections -fdata-sections -ffast-math -freciprocal-math -fsingle-precision-constant -fmessage-length=0
+CFLAGS += -O$(ARM_OPTIMIZE) -ffunction-sections -fdata-sections -ffast-math -freciprocal-math -fsingle-precision-constant -fmessage-length=0 -fno-gcse
 CFLAGS += -Wall -Wextra -c 
 CFLAGS += -Wl,--gc-sections
 ifeq ($(PEDANTIC),1)

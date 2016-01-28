@@ -1,20 +1,20 @@
-LXR-OWL Drumsynth Firmware
+LXR-OWL Drumsynth Firmware V0.37
 ====================================
-This version is a fork from PLD/RUDEOG that contains all original code and many new features (I called this version OWL as some of the plug ins added are coming from the nice project OWL http://hoxtonowl.com/patches-2/ ):
+This version is a fork from PLD/RUDEOG + Official Julain Firmware (V0.37, the latest !) that contains all original code and many new features (I called this version OWL as some of the plug ins added are coming from the nice project called OWL http://hoxtonowl.com/ ):
 
 ### 1. You can select among 72 pre filled patterns for each voice
-* Select a track (1-7), then, 
-* Click on the button VOICE, then, 
+* Select a track (1-7), then,
+* Click on the button VOICE, then,
 * Click on the OSC menu to access the extra features :-)
 
 ### 2. You can randomize steps/patterns for each voice, creating surprising drum lines!
-* Select a track (1-7), then, 
-* Click on the button VOICE, then, 
+* Select a track (1-7), then,
+* Click on the button VOICE, then,
 * Click on the OSC menu to access the extra features :-)
 
 ### 3. You can randomize the sound parameters of each voice, creating quickly news percussion sounds!
-* Select a track (1-7), then, 
-* Click on the button VOICE, then, 
+* Select a track (1-7), then,
+* Click on the button VOICE, then,
 * Click on the OSC menu to access the extra features :-)
 * You will see a menu called RND turn the knob from OFF to ON to listen to the new sound!
 * Knob 1 is used to choose which parameters you want to randomize:
@@ -34,7 +34,7 @@ This version is a fork from PLD/RUDEOG that contains all original code and many 
 
 ### 5. Sounds effect (Compressor, Bit crusher, Bit reduce, OTO biscuit FX alike, Bit reverse, etc)
 * Select the PERF button, then,
-* Click again the PERF button to access the sub menu. 
+* Click again the PERF button to access the sub menu.
 * You will see a menu **FX VL1 VL2 WET**
 # FX : Select the FX you want to apply :
 - 1: Simple compressor (VL1 = sensitivity, VL2 = Compression level)

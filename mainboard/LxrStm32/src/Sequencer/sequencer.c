@@ -739,6 +739,8 @@ void seq_setDeltaT(float delta)
 
 /*This is called from IRQ handler when an external clock tick is received
  * master steps are used to keep the sync with the external clocks
+ * a master step is a step that is directly triggered by the external clock signal.
+ * non master steps are derived from the internaly calculated phase accumulator.
  * spacing is defined by the prescaler value
  * - with 32ppq every step is a master step
  * - with 4ppq only every 8th step is a master step
@@ -797,7 +799,7 @@ void seq_resetDeltaAndTick()
 		const float shuffleFactor = seq_shuffleTable[stepInHalfBeat] * seq_shuffle;
 		const float originalDeltaT = seq_deltaT;
 
-		seq_deltaT = shuffleFactor * originalDeltaT * 1.f;
+		seq_deltaT = shuffleFactor * originalDeltaT * 16.f;
 		seq_lastShuffle = shuffleFactor;
 
 		if(seq_deltaT <= 0)
@@ -1626,31 +1628,6 @@ void seq_setLoopLength(uint8_t length)
 		seq_setTrackLength(i, length);
 	}
 
-}
-
-void seq_setLoopStartChaos(uint8_t start)
-{
-	uint8_t i;
-	uint8_t seqlen;
-
-	for(i=0;i<NUM_TRACKS;i++)
-	{
-		//increment the step index
-		//seq_stepIndex[i]++;
-		//check if track end is reached
-
-		// --AS **PATROT we now use this for length
-		seqlen=seq_patternSet.seq_patternLengthRotate[seq_activePattern][i].length;
-		if(!seqlen)
-			seqlen=16;
-
-		if((seq_stepIndex[i] / 8) == seqlen || (seq_stepIndex[i] & 0x7f) == 0)
-		{
-			//if end is reached reset track to step 'START'
-			seq_stepIndex[i] = start;
-		}
-	}	// attention dans cet methode on va reseter remettre le START à zero
-		//alors que d'autres track n'ont pas fini de jouer, bonjour le chaos !
 }
 
 // rstephane : My prefilled pattern

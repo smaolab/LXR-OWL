@@ -54,7 +54,7 @@ extern uint8_t fx5;
 extern uint8_t fx6;
 extern uint8_t fx7;
 
-HiHatVoice hatVoice;
+INCCMZ HiHatVoice hatVoice;
 
 //---------------------------------------------------
 void HiHat_setPan(const uint8_t pan)

@@ -28,12 +28,11 @@
 //-----------------------------------------------
 //defines
 //-----------------------------------------------
-#define FIRMWARE_VERSION "0.33"
+#define FIRMWARE_VERSION "0.37"
 #define CORTEX_RESET_PIN	PB0
 
 // rstephane --------------
 extern uint8_t maskTypebis; // 0-16 for OTO effects
-
 
 //-----------------------------------------------
 //code
@@ -77,14 +76,11 @@ int main(void)
 #else
 	//print boot up message
 	lcd_home();
-	lcd_string_F(PSTR("LXR ** ** **"));
+	lcd_string_F(PSTR("Sonic Potions"));
 	//goto 2nd line
 	lcd_setcursor(0,2);
-	//lcd_string_F(PSTR("LXR Drums V"));
-
-	// rstephane -----
-	lcd_string_F(PSTR("OWL Egnouf"));
-
+	lcd_string_F(PSTR("LXR-OWL "));
+//lcd_string_F(PSTR("LXR Drums V"));
 	lcd_string(FIRMWARE_VERSION);
 #endif
 

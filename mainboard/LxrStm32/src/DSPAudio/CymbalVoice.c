@@ -52,7 +52,8 @@ extern uint8_t fx5;
 extern uint8_t fx6;
 extern uint8_t fx7;
 
-CymbalVoice cymbalVoice;
+INCCMZ CymbalVoice cymbalVoice;
+
 //---------------------------------------------------
 void Cymbal_setPan(const uint8_t pan)
 {

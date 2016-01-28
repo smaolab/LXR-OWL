@@ -32,6 +32,9 @@ extern uint8_t menu_playedPattern;
 extern uint8_t menu_shownPattern;
 extern uint8_t menu_muteModeActive;
 
+#define NUM_PRESET_LOCATIONS 5 //kit, pattern, morph sound, performance, all
+extern uint8_t menu_currentPresetNr[NUM_PRESET_LOCATIONS];
+
 void menu_setShownPattern(uint8_t patternNr);
 uint8_t menu_getViewedPattern();
 

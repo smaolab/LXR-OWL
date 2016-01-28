@@ -68,10 +68,9 @@ extern int8_t delay; // 5 to 50 if possible!
 extern uint8_t AlienWahOnOff; // Set ALien FX ON or OFF
 // end --------
 
-
-float ampSmoothValue = 0.1f;
+INCCM static float ampSmoothValue = 0.1f;
 //---------------------------------------------------
-DrumVoice voiceArray[NUM_VOICES];
+INCCMZ DrumVoice voiceArray[NUM_VOICES];
 //---------------------------------------------------
 void setPan(const uint8_t voiceNr, const uint8_t pan)
 {
@@ -87,6 +86,8 @@ void drum_setPhase(const uint8_t phase, const uint8_t voiceNr)
 //---------------------------------------------------
 void initDrumVoice()
 {
+	ampSmoothValue = 0.1f;
+
 	int i;
 	for(i=0;i<NUM_VOICES;i++)
 	{
@@ -150,7 +151,7 @@ void Drum_trigger(const uint8_t voiceNr, const uint8_t vol, const uint8_t note)
 #ifdef USE_AMP_FILTER
 	if((voiceArray[voiceNr].volEgValueBlock[15]<=0.01f) || (voiceArray[voiceNr].transGen.waveform==1))
 #else
-	//	if((voiceArray[voiceNr].ampFilterInput<=0.01f) || (voiceArray[voiceNr].transGen.waveform==1))
+	//if((voiceArray[voiceNr].ampFilterInput<=0.01f) || (voiceArray[voiceNr].transGen.waveform==1))
 #endif
 	{
 		float offset = 1;
@@ -185,7 +186,8 @@ void Drum_trigger(const uint8_t voiceNr, const uint8_t vol, const uint8_t note)
 
 	SnapEg_trigger(&voiceArray[voiceNr].snapEg);
 
-
+	//reset filter coeffs to prevent wrong transient
+	SVF_reset(&voiceArray[voiceNr].filter);
 }
 //---------------------------------------------------
 void calcDrumVoiceAsync(const uint8_t voiceNr)

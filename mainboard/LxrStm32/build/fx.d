@@ -1,4 +1,4 @@
-build/stm32f4xx_it.o: src/stm32f4xx_it.c src/stm32f4xx_it.h \
+build/fx.o: src/DSPAudio/fx.c src/DSPAudio/fx.h \
  Libraries/Device/STM32F4xx/Include/stm32f4xx.h \
  Libraries/CMSIS/Include/core_cm4.h \
  Libraries/CMSIS/Include/core_cmInstr.h \
@@ -26,22 +26,4 @@ build/stm32f4xx_it.o: src/stm32f4xx_it.c src/stm32f4xx_it.h \
  Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_tim.h \
  Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h \
  Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_wwdg.h \
- Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h src/globals.h \
- src/Sequencer/sequencer.h src/globals.h \
- Libraries/STM32_USB_OTG_Driver/inc/usb_core.h \
- Libraries/STM32_USB_OTG_Driver/inc/usb_conf.h \
- Libraries/STM32_USB_OTG_Driver/inc/usb_regs.h \
- Libraries/STM32_USB_OTG_Driver/inc/usb_defines.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_core.h \
- Libraries/STM32_USB_OTG_Driver/inc/usb_dcd.h \
- Libraries/STM32_USB_OTG_Driver/inc/usb_core.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_def.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_conf.h \
- src/Hardware/USB/usb_midi_core.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_ioreq.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_core.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_req.h \
- src/Hardware/USB/usbd_desc.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_def.h \
- Libraries/STM32_USB_Device_Library/Core/inc/usbd_conf.h \
- src/MIDI/MidiMessages.h src/config.h
+ Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h src/config.h

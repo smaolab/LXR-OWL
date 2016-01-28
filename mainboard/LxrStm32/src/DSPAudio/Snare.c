@@ -54,7 +54,7 @@ extern uint8_t fx6;
 extern uint8_t fx7;
 
 //instance of the snare voice
-SnareVoice snareVoice;
+INCCMZ SnareVoice snareVoice;
 
 //---------------------------------------------------
 void Snare_setPan(const uint8_t pan)
